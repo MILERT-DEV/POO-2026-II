@@ -60,6 +60,7 @@ public class AppContext {
     private void registrarControladores() {
         //registrar(LoginController.class, new LoginController(getBean(IUsuarioService.class)));
         registrar(MainGuiController.class, new MainGuiController());
+
         registrar(ProductoController.class,
                 new ProductoController(
                         getBean(IMarcaService.class),

@@ -9,7 +9,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.Mnemonic;
 import pe.edu.upeu.sysventas.config.AppContext;
 
 import java.io.IOException;
@@ -17,20 +16,17 @@ import java.util.Map;
 
 public class MainGuiController {
 
-
     @FXML
-
     TabPane tabPane;
 
     @FXML
     MenuItem menuItem1, menuItem2;
 
     @FXML
-    public void initialize() {
-        MenuItemListener miL = new MenuItemListener();
+    public void initialize(){
+        MenuItemListener miL=new MenuItemListener();
         menuItem1.setOnAction(miL::handle);
         menuItem2.setOnAction(miL::handle);
-
     }
 
     class MenuItemListener{
@@ -70,4 +66,6 @@ public class MainGuiController {
             }
         }
     }
+
+
 }
