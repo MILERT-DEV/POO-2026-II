@@ -1,5 +1,6 @@
 package pe.edu.upeu.sysventas.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,9 @@ import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
 import org.controlsfx.control.action.Action;
 import pe.edu.upeu.sysventas.SysVentas;
+import pe.edu.upeu.sysventas.components.Toast;
 import pe.edu.upeu.sysventas.config.AppContext;
+import pe.edu.upeu.sysventas.config.DatabaseConfig;
 import pe.edu.upeu.sysventas.dto.SessionManager;
 import pe.edu.upeu.sysventas.model.Usuario;
 import pe.edu.upeu.sysventas.service.IUsuarioService;
@@ -37,9 +40,26 @@ public class LoginController {
                     abrirPantalla(e, usuario);
                 },
 
-                () -> System.out.println("usuario no encontrado"));
+                () -> {
+                    mensaje(e, "error en las credenciales...Intente nuevamente");
+                }
+                );
 
     }
+
+    public void mensaje (ActionEvent e, String msg) {
+        Stage stage=(Stage) ((Node)e.getSource()).getScene().getWindow();
+        double w = stage.getWidth() / 1.5, h = stage.getHeight() / 2;
+        Toast.showToast(stage, msg, 2000, w, h);
+    }
+
+    @FXML
+    public void logout () {
+        Platform.exit();
+        System.exit(0);
+        DatabaseConfig.shutdown();
+    }
+
     public void abrirPantalla(ActionEvent e, Usuario usuario){
 
         SessionManager.getInstance().setUserId(usuario.getIdUsuario());
