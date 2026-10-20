@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import lombok.RequiredArgsConstructor;
-import org.controlsfx.control.action.Action;
 import pe.edu.upeu.sysventas.SysVentas;
 import pe.edu.upeu.sysventas.components.Toast;
 import pe.edu.upeu.sysventas.config.AppContext;
@@ -33,28 +32,28 @@ public class LoginController {
     PasswordField txtClave;
 
     @FXML
-    public void login(ActionEvent e) {
-        us.loginUsuario(txtUsuario.getText(), txtClave.getText())
-                .ifPresentOrElse(
-                usuario -> {
-                    abrirPantalla(e, usuario);
-                },
-
-                () -> {
-                    mensaje(e, "error en las credenciales...Intente nuevamente");
-                }
-                );
+    public void login(ActionEvent e){
+       us.loginUsuario(txtUsuario.getText(), txtClave.getText())
+               .ifPresentOrElse(
+                       usuario ->{
+                           abrirPantalla(e,usuario);
+                       },
+                       () -> {
+                           mensaje(e,"Error en las credenciales...Intenete nuevamente");
+                       }
+               );
 
     }
 
-    public void mensaje (ActionEvent e, String msg) {
+
+    public void mensaje(ActionEvent e, String msg){
         Stage stage=(Stage) ((Node)e.getSource()).getScene().getWindow();
         double w = stage.getWidth() / 1.5, h = stage.getHeight() / 2;
         Toast.showToast(stage, msg, 2000, w, h);
     }
 
     @FXML
-    public void logout () {
+    public void logout(){
         Platform.exit();
         System.exit(0);
         DatabaseConfig.shutdown();
@@ -85,5 +84,10 @@ public class LoginController {
         }catch (Exception ex){ ex.printStackTrace(); }
 
     }
+
+
+
+
+
 
 }

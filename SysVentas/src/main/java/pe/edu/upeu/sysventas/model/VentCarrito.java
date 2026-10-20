@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pe.edu.upeu.sysventas.enums.TipoDocumento;
+import pe.edu.upeu.sysventas.enums.TipoProducto;
 
 @Data
 @Builder
@@ -20,4 +22,5 @@ public class VentCarrito {
     private Double ptotal;
     private int estado;
     private Usuario idUsuario;
+    private TipoProducto tipoProducto;
 }

@@ -4,6 +4,9 @@ import pe.edu.upeu.sysventas.controller.*;
 import pe.edu.upeu.sysventas.repository.*;
 import pe.edu.upeu.sysventas.service.*;
 import pe.edu.upeu.sysventas.service.impl.*;
+import pe.edu.upeu.sysventas.utils.ConsultaDNI;
+
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +46,11 @@ public class AppContext {
 
         registrar(IMenuMenuItemDao.class, new MenuMenuItemDaoImp());
 
+        registrar(ClienteRepository.class, new ClienteRepository());
+        registrar(VentCarritoRepository.class, new VentCarritoRepository());
+        registrar(VentaDetalleRepository.class, new VentaDetalleRepository());
+        registrar(VentaRepository.class, new VentaRepository());
+
     }
 
     // CAPA 2 — SERVICIOS
@@ -56,6 +64,14 @@ public class AppContext {
         registrar(IUnidadMedidaService.class, new UnidadMedidaServiceImp(getBean(UnidadMedidaRepository.class)));
 
         registrar(IUsuarioService.class, new UsuarioServiceImp(getBean(UsuarioRepository.class)));
+
+        registrar(ConsultaDNI.class, new ConsultaDNI());
+        DataSource ds = DatabaseConfig.getDataSource();
+        registrar(IClienteService.class, new ClienteServiceImp( getBean(ClienteRepository.class)));
+        registrar(IVentaCarritoService.class, new VentaCarritoServiceImp(getBean(VentCarritoRepository.class)));
+        registrar(IVentaDetalleService.class, new VentaDetalleServiceImp(getBean(VentaDetalleRepository.class)));
+        registrar(IVentaService.class, new VentaServiceImp( getBean(VentaRepository.class), ds));
+
 
     }
 
@@ -73,6 +89,9 @@ public class AppContext {
                         getBean(IProductoService.class),
                         getBean(IUnidadMedidaService.class)));
         registrar(LoginController.class, new LoginController(getBean(IUsuarioService.class)));
+
+        registrar(VentaController.class, new VentaController());
+
     }
 
     // API del contenedor — estos dos métodos son todo lo que hace la DI
